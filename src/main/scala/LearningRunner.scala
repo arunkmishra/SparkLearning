@@ -24,6 +24,8 @@ object LearningRunner extends InitSpark with App {
   def additionOptimizationTester(df: DataFrame): Unit = {
     val dfmod = df.withColumn("total", col("Confirmed") + 0.0)
     println(dfmod.queryExecution.optimizedPlan.numberedTreeString)
+    //00 Project [SNo#10, ObservationDate#11, Province/State#12, Country/Region#13, Last Update#14, Confirmed#15, Deaths#16, Recovered#17, (Confirmed#15 + 0.0) AS total#59]
+    //01 +- Relation[SNo#10,ObservationDate#11,Province/State#12,Country/Region#13,Last Update#14,Confirmed#15,Deaths#16,Recovered#17] csv
 
     println("After Optimization")
 
@@ -31,6 +33,10 @@ object LearningRunner extends InitSpark with App {
 
     val dfWithOptimization = df.withColumn("total", col("Confirmed") + 0.0)
     println(dfWithOptimization.queryExecution.optimizedPlan.numberedTreeString)
+    //add optimization implemented
+    //00 Project [SNo#10, ObservationDate#11, Province/State#12, Country/Region#13, Last Update#14, Confirmed#15, Deaths#16, Recovered#17, Confirmed#15 AS total#105]
+    //01 +- Relation[SNo#10,ObservationDate#11,Province/State#12,Country/Region#13,Last Update#14,Confirmed#15,Deaths#16,Recovered#17] csv
+
   }
 
 
